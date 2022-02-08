@@ -1,5 +1,5 @@
 /* @jsx createElement */
-import { createDOM, createElement, render } from './react' 
+import { createElement, render } from './react' 
 
 // 복잡해보인다. 개선방안
 // 객체 생성 함수 ... 세 개의 속성을 갖고 있는 객체를 생성하는 함수를 만든다면?
@@ -62,14 +62,40 @@ import { createDOM, createElement, render } from './react'
 제약 사항
 - 코드상으로는 creaetElement 사용하지 않지만 import 할 때 호출해야 하는 경우 있음
 */
+// const vdom = <p>
+//   <h1>React 만들기</h1>
+//   <ul>
+//     <li style="color:red">첫 번째 아이템</li>
+//     <li style="color:red">두 번째 아이템</li>
+//     <li style="color:red">세 번째 아이템</li>
+//   </ul>
+// </p>
+
+/* 사용자 컴포넌트를 만드는 방법 제공
+함수 컴포넌트 혹은 클래스 컴포넌트
+[1] 함수 컴포넌트 
+- UI 조각을 모듈화 할 수 있다
+- html 태그와는 다르게 의미가 명확하게? 묶을 수 있다
+*/
+/* 
+@jsx의 아이디어 createElement의 tag 함수로 받는다(jsx를 리턴하는) 
+무조건 대문자로 시작해야 한다. 컴포넌트 첫글자는
+대문자는 함수든 클래스든 둘 중 하나가 들어올 것이다 하는 Logic (전제)
+*/
+function Title(props, children) {
+  console.log('여기는 타이틀')
+  return <h1>{props.children}</h1>;
+}
+function Item(props) {
+  return <li style={`color:${props.color}`}>{props.children}</li>
+}
 const vdom = <p>
-  <h1>React 만들기</h1>
+  <Title label="React">React 정말 잘 만들기</Title>
   <ul>
-    <li style="color:red">첫 번째 아이템</li>
-    <li style="color:red">두 번째 아이템</li>
-    <li style="color:red">세 번째 아이템</li>
+    <Item color="red">첫 번째 아이템</Item>
+    <Item color="red">두 번째 아이템</Item>
+    <Item color="red">세 번째 아이템</Item>
   </ul>
 </p>
-
 
 render(vdom, document.querySelector('#root'))

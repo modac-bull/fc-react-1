@@ -1,5 +1,5 @@
 /* @jsx createElement */
-import { createDOM, createElement, render } from './react' 
+import { createDOM, createElement, render, Component } from './react' 
 
 /* 
 복잡해보인다. 개선방안
@@ -95,20 +95,31 @@ const vdom = <p>
 대문자는 함수든 클래스든 둘 중 하나가 들어올 것이다 하는 Logic (전제)
 */
 // 함수 컴포넌트의 개념 - React의 기저에 깔려있는 핵심코드 이해해보자
-function Title(props, children) {
-  console.log('여기는 타이틀')
-  return <h1>{props.children}</h1>;
-}
+// function Title(props, children) {
+//   console.log('여기는 타이틀')
+//   return <h1>{props.children}</h1>;
+// }
 function Item(props) {
   return <li style={`color:${props.color}`}>{props.children}</li>
 }
-const vdom = <p>
-  <Title label="React">React 정말 잘 만들기</Title>
+
+
+//[2] 클래스 컴포넌트
+class Title extends Component {
+  render() {
+    return <h1>{this.props.children}</h1>;
+  }
+}
+ 
+
+
+const App = () => <p>
+  <Title label="React">React 정말 클래스 컴포넌트 잘 만들기</Title>
   <ul>
     <Item color="red">첫 번째 아이템</Item>
-    <Item color="red">두 번째 아이템</Item>
+    <Item color="blue">두 번째 아이템</Item>
     <Item color="red">세 번째 아이템</Item>
   </ul>
 </p>
 
-render(vdom, document.querySelector('#root'));
+render(<App />, document.querySelector('#root'));

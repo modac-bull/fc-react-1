@@ -52,7 +52,23 @@ export function createElement(tag, props, ...children) {
   }
 }
 
+// virtual DOM
 export function render(vdom, container) {
   container.appendChild(createDOM(vdom));
 
 } 
+
+export const render = (function() {
+  let prevDom = null;
+
+  return function(vdom, container) {
+    if (prevDom = null) {
+      prevDom = vdom; // 최초의 DOM이 들어올 때
+    } 
+    
+    // diff
+    // Virtual DOM을 구현해보기...?
+
+    container.appendChild(createDOM(vdom)); 
+  }
+})();
